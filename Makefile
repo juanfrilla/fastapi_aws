@@ -2,6 +2,8 @@ install:
 	#install commands
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
+post-install:
+			python -m textblob.download_corpora
 format:
 	#format code
 	black *.py mylib/*.py
@@ -22,4 +24,4 @@ deploy:
 	docker build -t wiki .
 	docker push 934134239690.dkr.ecr.us-east-1.amazonaws.com/wiki:latest
 
-all: install lint test deploy
+all: install post-install lint test deploy
